@@ -1,0 +1,123 @@
+import { Link } from 'react-router-dom';
+import { Fuel, Gauge, Settings, Calendar, MapPin, Tag } from 'lucide-react';
+import type { Car } from '../../types';
+
+interface CarCardProps {
+  car: Car;
+  compact?: boolean;
+}
+
+const conditionBadge: Record<string, string> = {
+  'New': 'badge-new',
+  'Used': 'badge-used',
+  'Certified Pre-Owned': 'badge-certified',
+};
+
+const dealBadge: Record<string, string> = {
+  'Hot Deal': 'bg-red-600',
+  'New Arrival': 'bg-green-600',
+  'Price Drop': 'bg-purple-600',
+};
+
+export default function CarCard({ car, compact = false }: CarCardProps) {
+  const primaryImage = car.images?.[0] || '';
+  const discount = car.previousPrice
+    ? Math.round(((car.previousPrice - car.price) / car.previousPrice) * 100)
+    : 0;
+
+  return (
+    <Link to={`/cars/${car._id}`}
+      className={`car-card block rounded-2xl overflow-hidden group
+        bg-dark-700 border border-white/8 hover:border-brand-500/40 hover:shadow-2xl hover:shadow-brand-500/10`}>
+
+      {/* Image */}
+      <div className={`relative overflow-hidden ${compact ? 'h-44' : 'h-52'}`}>
+        {primaryImage ? (
+          <img src={primaryImage} alt={car.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+        ) : (
+          <div className="w-full h-full bg-dark-600 flex items-center justify-center">
+            <span className="text-4xl opacity-20">🚗</span>
+          </div>
+        )}
+
+        {/* Badges */}
+        <div className="absolute top-3 left-3 flex gap-2 flex-wrap">
+          <span className={`text-xs font-bold px-2 py-1 rounded-full text-white ${conditionBadge[car.condition]}`}>
+            {car.condition}
+          </span>
+          {car.dealType && (
+            <span className={`text-xs font-bold px-2 py-1 rounded-full text-white ${dealBadge[car.dealType]}`}>
+              {car.dealType}
+            </span>
+          )}
+        </div>
+
+        {/* Discount badge */}
+        {discount > 0 && (
+          <div className="absolute top-3 right-3 w-10 h-10 rounded-full price-tag flex items-center justify-center text-xs font-bold">
+            -{discount}%
+          </div>
+        )}
+
+        {/* Not Available overlay */}
+        {!car.isAvailable && (
+          <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+            <span className="text-white font-bold text-lg tracking-widest uppercase opacity-90">Sold</span>
+          </div>
+        )}
+      </div>
+
+      {/* Content */}
+      <div className="p-4">
+        {/* Title */}
+        <div className="mb-2">
+          <span className="text-xs text-brand-400 font-semibold uppercase tracking-wider">{car.make}</span>
+          <h3 className="font-display text-lg font-bold text-white leading-tight mt-0.5 group-hover:text-brand-300 transition-colors">
+            {car.year} {car.model}
+          </h3>
+        </div>
+
+        {/* Specs grid */}
+        <div className="grid grid-cols-2 gap-2 mb-3">
+          {[
+            { icon: <Gauge size={12} />, val: car.mileage > 0 ? `${car.mileage.toLocaleString()} mi` : 'Brand New' },
+            { icon: <Fuel size={12} />, val: car.fuelType },
+            { icon: <Settings size={12} />, val: car.transmission },
+            { icon: <Calendar size={12} />, val: car.year.toString() },
+          ].map((s, i) => (
+            <div key={i} className="flex items-center gap-1.5 text-xs text-gray-400">
+              <span className="text-brand-500">{s.icon}</span>
+              {s.val}
+            </div>
+          ))}
+        </div>
+
+        {/* Location */}
+        {car.location && (
+          <div className="flex items-center gap-1 text-xs text-gray-500 mb-3">
+            <MapPin size={11} /> {car.location}
+          </div>
+        )}
+
+        {/* Price */}
+        <div className="flex items-end justify-between">
+          <div>
+            {car.previousPrice && car.previousPrice > car.price && (
+              <div className="text-xs text-gray-500 line-through">
+                #{car.previousPrice.toLocaleString()}
+              </div>
+            )}
+            <div className="font-display text-2xl font-bold text-brand-400">
+              #{car.price.toLocaleString()}
+            </div>
+          </div>
+          <div className="flex items-center gap-1.5 text-xs text-gray-400 bg-white/5 px-2.5 py-1 rounded-full">
+            <Tag size={11} className="text-brand-500" />
+            {car.category}
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+}
