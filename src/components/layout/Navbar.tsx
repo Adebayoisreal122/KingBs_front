@@ -23,8 +23,8 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 nav-glass transition-all duration-300
-      ${scrolled ? 'bg-dark-900/95 border-b border-white/8 shadow-xl' : 'bg-transparent'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md transition-all duration-300
+      ${scrolled ? 'bg-white/95 border-b border-slate-100 shadow-sm' : 'bg-white/80'}`}>
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 group">
@@ -32,10 +32,10 @@ export default function Navbar() {
             <Car size={20} className="text-white" />
           </div>
           <div>
-            <div className="font-display text-xl font-bold tracking-wide text-white leading-none">
-              KINGBS<span className="brand-text">AUTO</span>
+            <div className="font-display text-xl font-bold tracking-wide text-slate-900 leading-none">
+              KINGBS<span className="text-brand-600">AUTO</span>
             </div>
-            <div className="text-xs text-gray-500 tracking-widest uppercase">Premium Motors</div>
+            <div className="text-xs text-slate-400 tracking-widest uppercase">Premium Motors</div>
           </div>
         </Link>
 
@@ -43,41 +43,41 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center gap-6">
           {navLinks.map(l => (
             <a key={l.label} href={l.href}
-              className={`text-sm font-medium transition-colors hover:text-brand-400
-                ${location.pathname === l.href.split('?')[0] ? 'text-brand-400' : 'text-gray-300'}`}>
+              className={`text-sm font-medium transition-colors hover:text-brand-600
+                ${location.pathname === l.href.split('?')[0] ? 'text-brand-600' : 'text-slate-600'}`}>
               {l.label}
             </a>
           ))}
         </div>
 
         {/* CTA */}
-        <div className="hidden lg:flex items-center gap-3">
-          <a href="tel:+1234567890" className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors">
-            <Phone size={15} className="text-brand-500" />
-            +1 (234) 567-890
+        <div className="hidden lg:flex items-center gap-5">
+          <a href="tel:+2348001234567" className="flex items-center gap-2 text-sm text-slate-600 hover:text-slate-900 transition-colors">
+            <Phone size={15} className="text-brand-600" />
+            +234 800 123 4567
           </a>
-          <Link to="/inventory" className="btn-brand px-5 py-2.5 rounded-xl text-sm">
+          <Link to="/inventory" className="bg-brand-600 hover:bg-brand-700 transition-colors text-white px-5 py-2.5 rounded-xl text-sm font-bold">
             Browse Cars
           </Link>
         </div>
 
         {/* Mobile menu toggle */}
-        <button onClick={() => setOpen(!open)} className="lg:hidden p-2 text-white">
+        <button onClick={() => setOpen(!open)} className="lg:hidden p-2 text-slate-900">
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
       {/* Mobile menu */}
       {open && (
-        <div className="lg:hidden bg-dark-900/98 border-t border-white/8 px-6 pb-6 pt-3 space-y-3">
+        <div className="lg:hidden bg-white border-t border-slate-100 px-6 pb-6 pt-3 space-y-3">
           {navLinks.map(l => (
             <a key={l.label} href={l.href} onClick={() => setOpen(false)}
-              className="block py-2.5 text-sm font-medium text-gray-300 border-b border-white/5 hover:text-brand-400 transition-colors">
+              className="block py-2.5 text-sm font-medium text-slate-600 border-b border-slate-100 hover:text-brand-600 transition-colors">
               {l.label}
             </a>
           ))}
           <Link to="/inventory" onClick={() => setOpen(false)}
-            className="block btn-brand px-5 py-3 rounded-xl text-sm text-center mt-4">
+            className="block bg-brand-600 hover:bg-brand-700 transition-colors text-white px-5 py-3 rounded-xl text-sm font-bold text-center mt-4">
             Browse All Cars
           </Link>
         </div>

@@ -24,18 +24,18 @@ const YoutubeIcon = () => (
 
 export default function Footer() {
   return (
-    <footer className="bg-dark-800 border-t border-white/8 text-gray-400">
+    <footer className="bg-slate-900 border-t border-white/10 text-slate-400">
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid md:grid-cols-4 gap-10">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-600 to-brand-500 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center">
                 <Car size={18} className="text-white" />
               </div>
               <div>
-                <div className="font-display text-lg font-bold text-white">KINGBS<span className="brand-text">AUTO</span></div>
-                <div className="text-xs text-gray-500 uppercase tracking-wider">Premium Motors</div>
+                <div className="font-display text-lg font-bold text-white">KINGBS<span className="text-brand-400">AUTO</span></div>
+                <div className="text-xs text-slate-500 uppercase tracking-wider">Premium Motors</div>
               </div>
             </div>
             <p className="text-sm leading-relaxed mb-5">
@@ -91,14 +91,14 @@ export default function Footer() {
             <h4 className="font-display text-sm font-semibold tracking-wider uppercase mb-4 text-brand-400">Contact Us</h4>
             <div className="space-y-3 text-sm">
               {[
-                { icon: <MapPin size={14} className="text-brand-500 flex-shrink-0 mt-0.5" />, val: '123 Auto Drive, Motor City, USA' },
-                { icon: <Phone size={14} className="text-brand-500 flex-shrink-0" />, val: '+1 (234) 567-890' },
-                { icon: <Mail size={14} className="text-brand-500 flex-shrink-0" />, val: 'sales@autoelite.com' },
+                { icon: <MapPin size={14} className="text-brand-400 flex-shrink-0 mt-0.5" />, val: 'Ibadan, Oyo State, Nigeria' },
+                { icon: <Phone size={14} className="text-brand-400 flex-shrink-0" />, val: '+234 800 123 4567' },
+                { icon: <Mail size={14} className="text-brand-400 flex-shrink-0" />, val: 'sales@kingbsauto.com' },
               ].map((c, i) => (
                 <div key={i} className="flex items-start gap-2">{c.icon}<span>{c.val}</span></div>
               ))}
             </div>
-            <div className="mt-5 p-4 rounded-xl bg-white/4 border border-white/8">
+            <div className="mt-5 p-4 rounded-xl bg-white/5 border border-white/10">
               <p className="text-xs font-medium text-white mb-1">Opening Hours</p>
               <p className="text-xs">Mon–Fri: 9am – 7pm</p>
               <p className="text-xs">Sat: 10am – 5pm</p>
@@ -107,12 +107,12 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-white/8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-600">
-          <p>© {new Date().getFullYear()} AutoElite Premium Motors. All Rights Reserved.</p>
+        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+          <p>© {new Date().getFullYear()} KINGBS AUTO Premium Motors. All Rights Reserved.</p>
           <div className="flex gap-4">
-            <a href="#" className="hover:text-gray-400 transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-gray-400 transition-colors">Terms of Service</a>
-            <Link to="/admin/login" className="hover:text-gray-400 transition-colors">Dealer Login</Link>
+            <a href="#" className="hover:text-slate-300 transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-slate-300 transition-colors">Terms of Service</a>
+            <Link to="/admin/login" className="hover:text-slate-300 transition-colors">Dealer Login</Link>
           </div>
         </div>
       </div>

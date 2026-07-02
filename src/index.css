@@ -6,13 +6,13 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #fff; }
+body { font-family: 'Inter', sans-serif; background: #ffffff; color: #fff; }
 
 .font-display { font-family: 'Barlow Condensed', sans-serif; }
 
 /* Orange gradient text */
 .brand-text {
-  background: linear-gradient(135deg, #f97316 0%, #fb923c 50%, #f97316 100%);
+  background: linear-gradient(135deg, #f01010 0%, #f01010 50%, #f01010 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -53,7 +53,7 @@ body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #fff; }
 }
 .input-dark:focus {
   outline: none;
-  border-color: #f97316;
+  border-color: #f01010;
   box-shadow: 0 0 0 3px rgba(249,115,22,0.15);
 }
 .input-dark::placeholder { color: rgba(255,255,255,0.3); }
@@ -66,13 +66,13 @@ body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #fff; }
 }
 .input-light:focus {
   outline: none;
-  border-color: #f97316;
+  border-color: #f01010;
   box-shadow: 0 0 0 3px rgba(249,115,22,0.1);
 }
 
 /* Btn */
 .btn-brand {
-  background: linear-gradient(135deg, #ea580c, #f97316);
+  background: linear-gradient(135deg, #f01010, #f01010);
   color: #fff;
   font-weight: 600;
   transition: all 0.3s ease;
@@ -80,8 +80,8 @@ body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #fff; }
 .btn-brand:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(249,115,22,0.35); }
 
 .btn-outline-brand {
-  border: 1.5px solid #f97316;
-  color: #f97316;
+  border: 1.5px solid #f01010;
+  color: #f01010;
   transition: all 0.3s ease;
 }
 .btn-outline-brand:hover { background: rgba(249,115,22,0.1); }
@@ -99,7 +99,7 @@ body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #fff; }
 /* Divider */
 .divider-brand {
   width: 48px; height: 3px;
-  background: linear-gradient(90deg, #ea580c, #f97316);
+  background: linear-gradient(90deg, #b80808, #f01010);
   border-radius: 2px;
 }
 
@@ -111,7 +111,7 @@ body { font-family: 'Inter', sans-serif; background: #0a0a0f; color: #fff; }
 
 /* Price tag */
 .price-tag {
-  background: linear-gradient(135deg, #ea580c, #f97316);
+  background: linear-gradient(135deg, #d60707, #f01010);
   color: white;
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 700;

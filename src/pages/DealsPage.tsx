@@ -23,14 +23,14 @@ export default function DealsPage() {
   }, [activeTab]);
 
   return (
-    <div className="min-h-screen bg-dark-900 pt-20">
+    <div className="min-h-screen bg-white pt-20">
       {/* Header */}
-      <div className="bg-dark-800 border-b border-white/8 py-12">
+      <div className="bg-slate-50 border-b border-slate-100 py-12">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <h1 className="font-display text-5xl font-black text-white uppercase mb-3">
-            Special <span className="brand-text">Deals</span>
+          <h1 className="font-display text-5xl font-black text-slate-900 mb-3">
+            Special <span className="text-brand-600">Deals</span>
           </h1>
-          <p className="text-gray-400">Exclusive offers and limited-time prices on premium vehicles</p>
+          <p className="text-slate-400">Exclusive offers and limited-time prices on premium vehicles</p>
         </div>
       </div>
 
@@ -40,7 +40,9 @@ export default function DealsPage() {
           {dealTabs.map(tab => (
             <button key={tab.value} onClick={() => setActiveTab(tab.value)}
               className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm whitespace-nowrap transition-all
-                ${activeTab === tab.value ? 'btn-brand' : 'border border-white/15 text-gray-400 hover:border-brand-500/40 hover:text-brand-400'}`}>
+                ${activeTab === tab.value
+                  ? 'bg-brand-600 text-white'
+                  : 'border border-slate-200 text-slate-500 bg-white hover:border-brand-300 hover:text-brand-600'}`}>
               {tab.label}
             </button>
           ))}
@@ -48,13 +50,13 @@ export default function DealsPage() {
 
         {loading ? (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {[...Array(8)].map((_, i) => <div key={i} className="h-72 rounded-2xl bg-dark-700 animate-pulse" />)}
+            {[...Array(8)].map((_, i) => <div key={i} className="h-72 rounded-2xl bg-slate-100 animate-pulse" />)}
           </div>
         ) : cars.length === 0 ? (
           <div className="text-center py-24">
             <div className="text-6xl mb-4">🏷️</div>
-            <h3 className="font-display text-2xl font-bold text-white mb-2">No {activeTab}s Right Now</h3>
-            <p className="text-gray-400">Check back soon — we update deals regularly</p>
+            <h3 className="font-display text-2xl font-bold text-slate-900 mb-2">No {activeTab}s Right Now</h3>
+            <p className="text-slate-400">Check back soon — we update deals regularly</p>
           </div>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
