@@ -30,8 +30,8 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center">
-                <Car size={18} className="text-white" />
+              <div className="w-20 h-10 rounded-xl flex items-center justify-center">
+                <img src="/KingBs logo.png" alt="" />
               </div>
               <div>
                 <div className="font-display text-lg font-bold text-white">KINGBS<span className="text-brand-400">AUTO</span></div>

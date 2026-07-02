@@ -24,18 +24,18 @@ export default function Navbar() {
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md transition-all duration-300
-      ${scrolled ? 'bg-white/95 border-b border-slate-100 shadow-sm' : 'bg-white/80'}`}>
+      ${scrolled ? 'bg-transparent/40 border-b border-gray-500 shadow-sm' : 'bg-transparent/10 border-b border-gray-200 shadow-sm'}`}>
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-600 to-brand-500 flex items-center justify-center shadow-lg group-hover:shadow-brand-500/40 transition-shadow">
-            <Car size={20} className="text-white" />
+          <div className="w-20  h-10  flex items-center justify-center">
+           <img src="/KingBs logo.png" alt="Logo" />
+           <img src="/Kingbs.png" alt="" />
           </div>
           <div>
-            <div className="font-display text-xl font-bold tracking-wide text-slate-900 leading-none">
-              KINGBS<span className="text-brand-600">AUTO</span>
-            </div>
-            <div className="text-xs text-slate-400 tracking-widest uppercase">Premium Motors</div>
+            {/* <div className=" w-20 h-10  flex">
+              <img src="/Kingbs.png" alt="" className='w-50' />
+            </div> */}
           </div>
         </Link>
 

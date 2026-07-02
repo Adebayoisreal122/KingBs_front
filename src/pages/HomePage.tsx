@@ -80,35 +80,43 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-white">
       {/* ── Hero ── */}
-      <section className="relative overflow-hidden bg-slate-50">
-        {/* soft radial accent */}
-        <div className="absolute -top-32 -right-32 w-[560px] h-[560px] rounded-full bg-brand-200/40 blur-3xl" />
-        <div className="absolute top-40 -left-24 w-72 h-72 rounded-full bg-amber-200/30 blur-3xl" />
+      <section className="relative overflow-hidden">
+        {/* Background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/hero.jfif')" }}
+        />
+        {/* Dark gradient overlay — strong left (text side), fading right so the photo still reads */}
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 to-slate-950/40" />
+        {/* Bottom fade so the section blends into the next block */}
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-slate-950/60" />
+        {/* subtle brand-tinted glow, kept low so it doesn't fight the photo */}
+        <div className="absolute -top-32 -right-32 w-[560px] h-[560px] rounded-full bg-brand-600/20 blur-3xl" />
 
-        <div className="max-w-7xl mx-auto px-6 pt-28 pb-16 relative z-10">
+        <div className="max-w-7xl mx-auto px-6 pt-28 pb-20 relative z-10">
           <div className="grid lg:grid-cols-2 gap-10 items-center">
             <div className="max-w-xl">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-200 bg-brand-50 mb-6">
-                <Zap size={13} className="text-brand-600" />
-                <span className="text-brand-700 text-xs font-semibold tracking-wider uppercase">Premium Auto Dealership</span>
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm mb-6">
+                <Zap size={13} className="text-brand-400" />
+                <span className="text-white/90 text-xs font-semibold tracking-wider uppercase">Premium Auto Dealership</span>
               </div>
 
-              <h1 className="font-display text-5xl md:text-7xl font-black text-slate-900 leading-[1.02] mb-6">
+              <h1 className="font-display text-5xl md:text-7xl font-black text-white leading-[1.02] mb-6 drop-shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
                 Find Your<br />
-                <span className="text-brand-600">Dream Car</span> Today
+                <span className="text-brand-400">Dream Car</span> Today
               </h1>
 
-              <p className="text-slate-500 text-lg leading-relaxed mb-8">
+              <p className="text-slate-300 text-lg leading-relaxed mb-8">
                 Explore thousands of premium new and used vehicles. Transparent pricing, verified history, and unbeatable deals — right here in Oyo State.
               </p>
 
               {/* Search bar */}
               <form onSubmit={handleSearch} className="flex gap-3 mb-6">
                 <div className="flex-1 relative">
-                  <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/50" />
                   <input value={search} onChange={e => setSearch(e.target.value)}
                     placeholder="Search make, model, or keyword..."
-                    className="w-full pl-11 pr-4 py-4 rounded-xl text-sm bg-white border border-slate-200 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-brand-400" />
+                    className="w-full pl-11 pr-4 py-4 rounded-xl text-sm bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-brand-400/50 focus:border-brand-400" />
                 </div>
                 <button type="submit" className="bg-brand-600 hover:bg-brand-700 transition-colors text-white px-6 py-4 rounded-xl text-sm font-bold whitespace-nowrap">
                   Search
@@ -118,27 +126,22 @@ export default function HomePage() {
               <div className="flex flex-wrap gap-2">
                 {['New Cars', 'Used Cars', 'Under ₦1M', 'SUVs', 'Electric'].map(tag => (
                   <a key={tag} href={`/inventory?search=${tag}`}
-                    className="text-xs px-3 py-1.5 rounded-full border border-slate-200 text-slate-500 hover:border-brand-400 hover:text-brand-600 transition-colors bg-white">
+                    className="text-xs px-3 py-1.5 rounded-full border border-white/20 text-white/80 hover:border-brand-400 hover:text-brand-300 transition-colors bg-white/5 backdrop-blur-sm">
                     {tag}
                   </a>
                 ))}
               </div>
             </div>
 
-            {/* Hero visual placeholder */}
-            <div className="relative hidden lg:block">
-              <div className="aspect-[4/3] rounded-3xl bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center overflow-hidden relative">
-                <CarIcon size={140} className="text-white/90" strokeWidth={1} />
-                <div className="absolute inset-0 opacity-10"
-                  style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '18px 18px' }} />
-              </div>
-              <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl px-5 py-4 flex items-center gap-3 border border-slate-100">
-                <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
+            {/* Floating trust card — sits over the photo on the right */}
+            <div className="relative hidden lg:flex justify-end">
+              <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl px-5 py-4 flex items-center gap-3 border border-white/20 mt-auto mb-8">
+                <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400">
                   <CheckCircle2 size={18} />
                 </div>
                 <div>
-                  <div className="text-sm font-bold text-slate-900">150-Point Inspected</div>
-                  <div className="text-xs text-slate-400">Every listing, guaranteed</div>
+                  <div className="text-sm font-bold text-white">150-Point Inspected</div>
+                  <div className="text-xs text-white/60">Every listing, guaranteed</div>
                 </div>
               </div>
             </div>
