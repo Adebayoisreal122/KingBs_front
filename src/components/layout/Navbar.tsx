@@ -28,14 +28,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-20  h-10  flex items-center justify-center">
-           <img src="/KingBs logo.png" alt="Logo" />
-           <img src="/Kingbs.png" alt="" />
-          </div>
-          <div>
-            {/* <div className=" w-20 h-10  flex">
-              <img src="/Kingbs.png" alt="" className='w-50' />
-            </div> */}
+          <div className="w-24  h-11  flex items-center justify-center">
+           <img src="/logoKing.png" alt="Logo" />
           </div>
         </Link>
 
