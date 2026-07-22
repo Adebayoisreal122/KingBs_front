@@ -26,7 +26,7 @@ export default function CarDetailPage() {
     try {
       await submitEnquiry({ ...enquiryForm, carId: car._id, carTitle: `${car.year} ${car.make} ${car.model}` });
       setSent(true);
-    } catch (err: any) { setSendError(err.message || 'Failed to send enquiry'); }
+    } catch (err) { setSendError(err.message || 'Failed to send enquiry'); }
     finally { setSending(false); }
   };
 
@@ -193,7 +193,7 @@ export default function CarDetailPage() {
                     placeholder="Email Address *" required className={input} />
                   <input value={enquiryForm.phone} onChange={e => setEnquiryForm(f => ({ ...f, phone: e.target.value }))}
                     placeholder="Phone Number" className={input} />
-                  <select value={enquiryForm.type} onChange={e => setEnquiryForm(f => ({ ...f, type: e.target.value as any }))}
+                  <select value={enquiryForm.type} onChange={e => setEnquiryForm(f => ({ ...f, type: e.target.value }))}
                     className={input}>
                     <option value="General">General Enquiry</option>
                     <option value="Test Drive">Book Test Drive</option>

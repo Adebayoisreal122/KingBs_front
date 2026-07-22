@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Car, Phone } from 'lucide-react';
+import { Menu, X, Phone } from 'lucide-react';
 
 const navLinks = [
   { label: 'Home', href: '/' },
@@ -27,7 +27,7 @@ export default function Navbar() {
       ${scrolled ? 'bg-transparent/40 border-b border-gray-500 shadow-sm' : 'bg-transparent/10 border-b border-gray-200 shadow-sm'}`}>
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-3 group">
+        <Link to="/" className="flex items-center gap-1 group">
           <div className="w-24  h-11  flex items-center justify-center">
            <img src="/logoKing.png" alt="Logo" />
           </div>

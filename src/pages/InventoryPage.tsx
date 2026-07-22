@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { SlidersHorizontal, X, ChevronDown, Search } from 'lucide-react';
 import { fetchCars } from '../services/api';
@@ -21,15 +21,41 @@ const sortOptions = [
 const defaultFilters: CarFilters = {
   search: '', category: '', condition: '', make: '',
   minPrice: '', maxPrice: '', minYear: '', maxYear: '',
-  transmission: '', fuelType: '', sortBy: '-createdAt',
+  transmission: '', fuelType: '', sortBy: '-createdAt', dealType: ''
 };
+
+const inputClasses = 'w-full bg-white border border-slate-200 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-400 rounded-xl text-sm';
+
+// ── Hoisted out of InventoryPage so it isn't redefined on every render ──
+interface SelectFilterProps {
+  label: string;
+  value: string;
+  options: string[];
+  filterKey: keyof CarFilters;
+  onChange: (key: keyof CarFilters, val: string) => void;
+}
+
+function SelectFilter({ label, value, options, filterKey, onChange }: SelectFilterProps) {
+  return (
+    <div>
+      <label className="block text-xs text-slate-400 mb-1.5 uppercase tracking-wider font-semibold">{label}</label>
+      <div className="relative">
+        <select value={value} onChange={e => onChange(filterKey, e.target.value)}
+          className={`${inputClasses} appearance-none px-3 py-2.5 pr-8`}>
+          {options.map(o => <option key={o} value={o === 'Any' ? '' : o}>{o}</option>)}
+        </select>
+        <ChevronDown size={13} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+      </div>
+    </div>
+  );
+}
 
 export default function InventoryPage() {
   const [searchParams] = useSearchParams();
-  const [cars, setCars] = useState<Car[]>([]);
-  const [total, setTotal] = useState(0);
+  const [result, setResult] = useState<{ cars: Car[]; total: number; pages: number }>({
+    cars: [], total: 0, pages: 1,
+  });
   const [page, setPage] = useState(1);
-  const [pages, setPages] = useState(1);
   const [loading, setLoading] = useState(true);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [filters, setFilters] = useState<CarFilters>({
@@ -39,11 +65,9 @@ export default function InventoryPage() {
     condition: searchParams.get('condition') || '',
   });
 
-  useEffect(() => {
-    load();
-  }, [filters, page]);
+  const { cars, total, pages } = result;
 
-  const load = async () => {
+  const load = useCallback(async () => {
     setLoading(true);
     try {
       const params: Record<string, string | number> = { page, limit: 12, sortBy: filters.sortBy };
@@ -58,13 +82,18 @@ export default function InventoryPage() {
       if (filters.transmission && filters.transmission !== 'Any') params.transmission = filters.transmission;
       if (filters.fuelType && filters.fuelType !== 'Any') params.fuelType = filters.fuelType;
 
-      const res = await fetchCars(params as any);
-      setCars(res.data || []);
-      setTotal(res.total || 0);
-      setPages(res.pages || 1);
-    } catch (e) { setCars([]); }
-    finally { setLoading(false); }
-  };
+      const res = await fetchCars(params);
+      setResult({ cars: res.data || [], total: res.total || 0, pages: res.pages || 1 });
+    } catch {
+      setResult({ cars: [], total: 0, pages: 1 });
+    } finally {
+      setLoading(false);
+    }
+  }, [filters, page]);
+
+  useEffect(() => {
+    load();
+  }, [load]);
 
   const setFilter = (key: keyof CarFilters, val: string | number) => {
     setFilters(f => ({ ...f, [key]: val }));
@@ -76,21 +105,6 @@ export default function InventoryPage() {
   const activeFiltersCount = Object.entries(filters).filter(([k, v]) =>
     v !== '' && v !== 'Any' && v !== '-createdAt' && k !== 'sortBy'
   ).length;
-
-  const inputClasses = 'w-full bg-white border border-slate-200 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-400 rounded-xl text-sm';
-
-  const SelectFilter = ({ label, value, options, filterKey }: { label: string; value: string; options: string[]; filterKey: keyof CarFilters }) => (
-    <div>
-      <label className="block text-xs text-slate-400 mb-1.5 uppercase tracking-wider font-semibold">{label}</label>
-      <div className="relative">
-        <select value={value} onChange={e => setFilter(filterKey, e.target.value)}
-          className={`${inputClasses} appearance-none px-3 py-2.5 pr-8`}>
-          {options.map(o => <option key={o} value={o === 'Any' ? '' : o}>{o}</option>)}
-        </select>
-        <ChevronDown size={13} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
-      </div>
-    </div>
-  );
 
   return (
     <div className="min-h-screen bg-white pt-20">
@@ -133,9 +147,9 @@ export default function InventoryPage() {
                 </div>
               </div>
 
-              <SelectFilter label="Category" value={filters.category} options={categories} filterKey="category" />
-              <SelectFilter label="Condition" value={filters.condition} options={conditions} filterKey="condition" />
-              <SelectFilter label="Make" value={filters.make} options={makes} filterKey="make" />
+              <SelectFilter label="Category" value={filters.category} options={categories} filterKey="category" onChange={setFilter} />
+              <SelectFilter label="Condition" value={filters.condition} options={conditions} filterKey="condition" onChange={setFilter} />
+              <SelectFilter label="Make" value={filters.make} options={makes} filterKey="make" onChange={setFilter} />
 
               {/* Price range */}
               <div>
@@ -163,8 +177,8 @@ export default function InventoryPage() {
                 </div>
               </div>
 
-              <SelectFilter label="Transmission" value={filters.transmission} options={transmissions} filterKey="transmission" />
-              <SelectFilter label="Fuel Type" value={filters.fuelType} options={fuelTypes} filterKey="fuelType" />
+              <SelectFilter label="Transmission" value={filters.transmission} options={transmissions} filterKey="transmission" onChange={setFilter} />
+              <SelectFilter label="Fuel Type" value={filters.fuelType} options={fuelTypes} filterKey="fuelType" onChange={setFilter} />
             </div>
           </aside>
 

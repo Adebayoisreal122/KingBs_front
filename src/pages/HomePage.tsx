@@ -56,9 +56,9 @@ export default function HomePage() {
     const load = async () => {
       try {
         const [featuredRes, dealsRes, newRes] = await Promise.all([
-          fetchCars({ isFeatured: true, limit: 6 } as any),
-          fetchCars({ dealType: 'Hot Deal', limit: 4 } as any),
-          fetchCars({ dealType: 'New Arrival', limit: 4 } as any),
+          fetchCars({ featured: true, limit: 6 }),
+          fetchCars({ dealType: 'Hot Deal', limit: 4 }),
+          fetchCars({ dealType: 'New Arrival', limit: 4 }),
         ]);
         setFeatured(featuredRes.data || []);
         setHotDeals(dealsRes.data || []);

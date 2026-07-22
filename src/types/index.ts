@@ -47,6 +47,7 @@ export interface CarFilters {
   transmission: string;
   fuelType: string;
   sortBy: string;
+  dealType: string; // 
 }
 
 export interface ApiResponse<T> {

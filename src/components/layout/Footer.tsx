@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Car, Phone, Mail, MapPin } from 'lucide-react';
+import { Phone, Mail, MapPin } from 'lucide-react';
 
 const FacebookIcon = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
@@ -29,13 +29,9 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-10">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-20 h-10 rounded-xl flex items-center justify-center">
-                <img src="/KingBs logo.png" alt="" />
-              </div>
-              <div>
-                <div className="font-display text-lg font-bold text-white">KINGBS<span className="text-brand-400">AUTO</span></div>
-                <div className="text-xs text-slate-500 uppercase tracking-wider">Premium Motors</div>
+            <div className="flex items-center mb-4">
+              <div className="w-24 h-10 rounded-xl shadow-lg flex items-center justify-center">
+                <img src="/logoKing.png" alt="" />
               </div>
             </div>
             <p className="text-sm leading-relaxed mb-5">

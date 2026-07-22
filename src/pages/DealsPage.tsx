@@ -17,7 +17,7 @@ export default function DealsPage() {
 
   useEffect(() => {
     setLoading(true);
-    fetchCars({ dealType: activeTab, limit: 20 } as any)
+    fetchCars({ dealType: activeTab, limit: 20 })
       .then(r => { setCars(r.data || []); setLoading(false); })
       .catch(() => setLoading(false));
   }, [activeTab]);
